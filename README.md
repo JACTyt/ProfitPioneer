@@ -1,2 +1,2 @@
-# management-game
+# Profit Pioneer
 Java project of management game
