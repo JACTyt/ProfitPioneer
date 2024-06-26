@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/template.html}">
+<head>
+    <title>Profit Pioneer - Rules</title>
+</head>
+
+<section layout:fragment="content">
+    <div class="worker-container">
+        <h2>Workers List</h2>
+        <div class="list-container">
+            <div class="list-item" th:each="workers : ${@profitPioneerController.getWorkHouse().getWorkerList()}"
+                 th:attr="id='worker-' + ${workers.getId()}" draggable="true" ondragstart="drag(event)">
+                <div class="list-item-header">
+                    <span th:text="${workers.getFullName()}"></span>
+                </div>
+                <div>
+                    <div>
+                        <span>ID: </span>
+                        <span th:text="${workers.getId()}"></span>
+                    </div>
+                    <div>
+                        <span>Payment: </span>
+                        <span th:text="${workers.getPayment()}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="job-container">
+        <h2>Job List</h2>
+        <div class="list-container" onchange="addEventListeners()">
+            <div class="list-item" th:each="jobs : ${@profitPioneerController.getWorkHouse().getJobList()}"
+                 th:attr="id='job-' + ${jobs.getId()}" ondragover="allowDrop(event)" ondrop="drop(event)">
+                <div class="list-item-header">
+                    <span th:text="${jobs.getJobName()}"></span>
+                </div>
+                <div>
+                    <div>
+                        <span>ID: </span>
+                        <span th:text="${jobs.getId()}"></span>
+                    </div>
+                    <div>
+                        <span>Capacity: </span>
+                        <span th:text="${jobs.getCapacity()}"></span>
+                    </div>
+                    <div>
+                        <span>Hired Workers: </span>
+                        <span th:text="${jobs.getAssignedWorkers().size()}"></span>
+                    </div>
+                    <div>
+                        <span>Deal Profit: </span>
+                        <span th:text="${jobs.getDealProfit()}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="/start-game" th:if="${!@profitPioneerController.isGameStarted()}">
+        <input type="submit" value="Start Game"/>
+    </form>
+    <div class="profit-container">
+        <h2>Profit:</h2>
+        <h2 th:text="${@profitPioneerController.getWorkHouse().getProfit()}"></h2>
+    </div>
+</section>
+
+
+</html>

@@ -1,29 +1,27 @@
 package studio.jact.gamebox.game.profit_pioneer.core;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-
-import org.json.simple.parser.JSONParser;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-
 public class Worker implements IWorker{
+    private int id;
     private String name;
     private String surname;
     private int payment;
 
-    public Worker() {
-        generateFullName();
+    public Worker(int id) {
+        this.id = id;
+        Initialize();
     }
 
-    public Worker(String name, String surname, int payment) {
+    public Worker(int id, String name, String surname, int payment) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.payment = payment;
+    }
+
+    private void Initialize() {
+        name = JSONGetter.getRandomStringFromJson("src/main/java/studio/jact/gamebox/game/profit_pioneer/names/first-names.json");
+        surname = JSONGetter.getRandomStringFromJson("src/main/java/studio/jact/gamebox/game/profit_pioneer/names/middle-names.json");
+        payment = ValueGenerator.generate(10,90,5);
     }
 
     @Override
@@ -31,48 +29,17 @@ public class Worker implements IWorker{
         job.assignWorker(this);
     }
 
+    @Override
     public String getFullName(){
         return  name + " " + surname;
     }
 
-    private void generateFullName(){
-        JSONArray jsonNames = new JSONArray();
+    public int getId(){
+        return id;
+    }
 
-        try (FileReader reader = new FileReader("src/main/java/studio/jact/gamebox/game/profit_pioneer/names/first-names.json"))
-        {
-            //Read JSON file
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(reader);
-            jsonNames = (JSONArray) obj;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        int randName = (int)(Math.random()*jsonNames.size());
-        name = (String)jsonNames.get(randName);
-        System.out.println(name);
-
-        JSONArray jsonSurnames = new JSONArray();
-        try (FileReader reader = new FileReader("src/main/java/studio/jact/gamebox/game/profit_pioneer/names/middle-names.json"))
-        {
-            //Read JSON file
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(reader);
-            jsonSurnames = (JSONArray) obj;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        int randSurname = (int)(Math.random()*jsonSurnames.size());
-        surname = (String)jsonSurnames.get(randSurname);
-        System.out.println(surname);
+    @Override
+    public int getPayment() {
+        return payment;
     }
 }

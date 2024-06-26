@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout>
+<head>
+    <title>Profit Pioneer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+    <script src="/js/draganddrop.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="ubuntu-regular">
+
+<header th:replace="~{fragments/fragments :: header}"></header>
+
+<section layout:fragment="content">
+    <p>Page content goes here</p>
+</section>
+
+<footer th:replace="~{fragments/fragments :: footer}"></footer>
+
+</body>
+</html>
