@@ -6,10 +6,22 @@
     <title>Profit Pioneer</title>
 </head>
 
-<section layout:fragment="content">
-    <div>
-        <span>Turns:</span>
-        <span th:text="${@profitPioneerController.getWorkHouse().getTurns()}"></span>
+<section layout:fragment="content" class="game-container">
+    <section th:replace="~{fragments/fragments :: rules-page-link}"></section>
+
+    <div class="game-information">
+        <div class="line-description-container">
+            <span>Stage:</span>
+            <span th:text="${@profitPioneerController.getWorkHouse().getStage()}"></span>
+        </div>
+        <div id="total-profit" class="line-description-container">
+            <span>Total Profit:</span>
+            <span th:text="${@profitPioneerController.getWorkHouse().getProfit()}"></span>
+        </div>
+        <div class="line-description-container">
+            <span>Turns:</span>
+            <span th:text="${@profitPioneerController.getWorkHouse().getTurns()}"></span>
+        </div>
     </div>
 
     <div class="worker-container">
@@ -52,7 +64,12 @@
                     </div>
                     <div>
                         <span>Hired Workers: </span>
-                        <span th:text="${jobs.getAssignedWorkers().size()}"></span>
+                        <div class="counter-list">
+                            <img th:if="${jobs.getAssignedWorkers().size() > 0}" th:each="i : ${#numbers.sequence(1,jobs.getAssignedWorkers().size())}" src="images/hire-counter.png" alt="img"/>
+                            <img th:each="i : ${#numbers.sequence(1,jobs.getCapacity()-jobs.getAssignedWorkers().size())}" src="images/empty-counter.png" alt="img"/>
+                        </div>
+                        <span th:each="worker : ${jobs.getAssignedWorkers()}">
+                        </span>
                     </div>
                     <div>
                         <span>Deal Profit: </span>
@@ -60,6 +77,9 @@
                     </div>
                     <div th:if="${@jobExtras.isTemporaryJob(jobs)}">
                         <span>Time remain: </span>
+                        <div class="counter-list">
+                            <img th:each="i : ${#numbers.sequence(1,@jobExtras.getTemporaryJobTime(jobs))}" src="images/time-counter.png" alt="img"/>
+                        </div>
                         <span th:text="${@jobExtras.getTemporaryJobTime(jobs)}"></span>
                         <span> refresh/es</span>
                     </div>
@@ -70,8 +90,8 @@
                     </div>
                 </div>
             </div>
-            <div class="list-item" ondragover="allowDrop(event)" ondrop="dropToTrashBin(event)" style="width: 10%; height: fit-content; max-height: 160px;">
-                <img src="images/trash-can.png" alt="trash can"style="object-fit: scale-down;" />
+            <div th:if="${@profitPioneerController.isGameStarted()}" class="list-item" ondragover="allowDrop(event)" ondrop="dropToTrashBin(event)" style="width: fit-content; height: fit-content;">
+                <img src="images/trash-can-white.png" alt="trash can"style="object-fit: cover; max-height: 160px; width: fit-content;" />
             </div>
         </div>
     </div>
@@ -81,12 +101,7 @@
     <form action="/reset" th:if="${@profitPioneerController.isGameStarted()}">
         <input class="button ubuntu-bold" type="submit" value="Reset"/>
     </form>
-    <div class="profit-container">
-        <h2>Total Profit:</h2>
-        <h2 th:text="${@profitPioneerController.getWorkHouse().getProfit()}"></h2>
-    </div>
 
-    <section th:replace="~{fragments/fragments :: rules-page}"></section>
 </section>
 
 

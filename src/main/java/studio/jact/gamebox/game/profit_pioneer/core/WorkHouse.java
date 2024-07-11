@@ -1,6 +1,7 @@
 package studio.jact.gamebox.game.profit_pioneer.core;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,13 +116,22 @@ public class WorkHouse {
         }
     }
 
-    private void refreshTurn() {
+    public void refreshTurn() {
         turns++;
         generateWorkers(jobList.size() + ValueGenerator.generate(0,jobList.size()+1,1));
-        for(IJob job: jobList){
-            if(job instanceof TemporaryJob){
-                ((TemporaryJob) job).setRemainTime(((TemporaryJob) job).getRemainTime()-1);
+        Iterator<IJob> jobIterator = jobList.iterator();
+        while (jobIterator.hasNext()){
+            IJob job = jobIterator.next();
+            if(job instanceof TemporaryJob temporaryJob) {
+                temporaryJob.setRemainTime(((TemporaryJob) job).getRemainTime()-1);
+                if (temporaryJob.getRemainTime() <= 0){
+                    profit -= temporaryJob.getPenalty();
+                    jobIterator.remove();
+                }
             }
+        }
+        if(!hasJobs()){
+            nextStage();
         }
     }
 
@@ -146,5 +156,9 @@ public class WorkHouse {
 
     public void setProfit(int profit) {
         this.profit = profit;
+    }
+
+    public void endGame(){
+
     }
 }

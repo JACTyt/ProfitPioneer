@@ -66,9 +66,34 @@ footer{
     font-weight: bold;
 }
 
-.profit-container{
-    display: block;
+.line-description-container{
+    display: flex;
     flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.line-description-container > span{
+    padding: 5px;
+    margin: 0;
+    font-size: x-large;
+    font-weight: 600;
+}
+
+.line-description-container#total-profit > span{
+    font-size: xx-large;
+}
+
+.game-container{
+    margin: 10px;
+}
+
+.game-information{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
 }
 
 <!-- DRAG AND DROP -->
@@ -133,5 +158,12 @@ footer{
     border-radius: 16px;
 }
 
-.button-text{
+.counter-list{
+    max-height: 160px;
+    max-width: fit-content;
+}
+
+.counter-list img{
+    width: 50px;
+    height: auto;
 }

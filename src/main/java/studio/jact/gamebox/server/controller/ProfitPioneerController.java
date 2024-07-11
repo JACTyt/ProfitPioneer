@@ -53,8 +53,21 @@ public class ProfitPioneerController {
     public String remove(@RequestParam(value = "worker",required = true) int workedId, Model model) {
         IWorker worker = workHouse.getWorkerList().stream().filter(x -> x.getId() == workedId).findFirst().get();
         workHouse.getWorkerList().remove(worker);
+        if(workHouse.getWorkerList().isEmpty()){
+            workHouse.refreshTurn();
+        }
         prepareModel(model);
         return "redirect:/";
+    }
+
+    @GetMapping("/save")
+    public String save(Model model){
+        return "save";
+    }
+
+    @GetMapping("/end")
+    public String end(Model model) {
+        return "end";
     }
 
     public void prepareModel(Model model){
