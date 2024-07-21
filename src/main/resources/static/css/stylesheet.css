@@ -8,13 +8,13 @@ body {
     background: #574B60;
 
 
-    color:white;
+    color: white;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-header{
+header {
     background: #3F334D;
     margin-bottom: auto;
     display: flex;
@@ -23,11 +23,11 @@ header{
     text-transform: uppercase;
 }
 
-.header-inside{
+.header-inside {
     margin: 20px;
 }
 
-footer{
+footer {
     background: #3F334D;
     margin-top: auto;
     display: flex;
@@ -35,11 +35,11 @@ footer{
     align-content: center;
 }
 
-.footer-inside{
+.footer-inside {
     margin: 10px;
 }
 
-.list-container{
+.list-container {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -49,11 +49,11 @@ footer{
     overflow-y: auto;
 }
 
-.list-item{
+.list-item {
     display: flex;
     flex-direction: column;
     margin: 10px;
-    background-color: rgb(48,48,48);
+    background-color: rgb(48, 48, 48);
     max-width: 300px;
     width: max-content;
     border-radius: 8px;
@@ -61,12 +61,12 @@ footer{
 
 }
 
-.list-item-header{
+.list-item-header {
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.line-description-container{
+.line-description-container {
     display: flex;
     flex-direction: row;
 
@@ -74,35 +74,39 @@ footer{
     align-items: center;
 }
 
-.line-description-container > span{
+.line-description-container > span {
     padding: 5px;
     margin: 0;
     font-size: x-large;
     font-weight: 600;
 }
 
-.line-description-container#total-profit > span{
+.line-description-container#total-profit > span {
     font-size: xx-large;
 }
 
-.game-container{
+.game-container {
     margin: 10px;
 }
 
-.game-information{
+.horizontal-line {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-content: center;
+    padding: 10px 0;
 }
 
-<!-- DRAG AND DROP -->
+.game-information {
+    padding: 0;
+}
+
 .dragging {
     opacity: 0.5;
 }
 
 .over {
-    border: 0px dashed #000;
+    border: 0 dashed #000;
 }
 
 ::-webkit-scrollbar {
@@ -141,7 +145,7 @@ footer{
     font-style: normal;
 }
 
-.button{
+.button {
     background-color: #3F334D; /* Green */
     border: none;
     color: white;
@@ -158,12 +162,16 @@ footer{
     border-radius: 16px;
 }
 
-.counter-list{
+.counter-list {
     max-height: 160px;
     max-width: fit-content;
 }
 
-.counter-list img{
+.counter-list img {
     width: 50px;
     height: auto;
+}
+
+.counter-list-item {
+    padding: 5px;
 }

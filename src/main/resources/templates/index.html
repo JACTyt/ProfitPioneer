@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/template.html}">
+        lang="en"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/template.html}">
 <head>
     <title>Profit Pioneer</title>
+
 </head>
 
 <section layout:fragment="content" class="game-container">
-    <section th:replace="~{fragments/fragments :: rules-page-link}"></section>
-
-    <div class="game-information">
+    <div class="game-information horizontal-line">
         <div class="line-description-container">
             <span>Stage:</span>
             <span th:text="${@profitPioneerController.getWorkHouse().getStage()}"></span>
         </div>
         <div id="total-profit" class="line-description-container">
             <span>Total Profit:</span>
-            <span th:text="${@profitPioneerController.getWorkHouse().getProfit()}"></span>
+            <span th:text="${@profitPioneerController.getWorkHouse().getProfit()}  + ' €'"></span>
         </div>
         <div class="line-description-container">
             <span>Turns:</span>
             <span th:text="${@profitPioneerController.getWorkHouse().getTurns()}"></span>
         </div>
+    </div>
+
+    <div class="horizontal-line counter-list" th:if="${@profitPioneerController.isGameStarted()}">
+        <img class="counter-list-item"
+             th:each="i : ${#numbers.sequence(1,@profitPioneerController.getWorkHouse().getLives())}"
+             src="/images/live-counter.png" alt="img"/>
     </div>
 
     <div class="worker-container">
@@ -51,9 +57,10 @@
             <div class="list-item" th:each="jobs : ${@profitPioneerController.getWorkHouse().getJobList()}"
                  th:attr="id='job-' + ${jobs.getId()}" ondragover="allowDrop(event)" ondrop="drop(event)">
                 <div class="list-item-header">
-                    <span th:text="${jobs.getJobName()}"></span>
+                    <span th:text="${jobs.getName()}"></span>
                 </div>
                 <div>
+                    <!--
                     <div>
                         <span>ID: </span>
                         <span th:text="${jobs.getId()}"></span>
@@ -62,46 +69,76 @@
                         <span>Capacity: </span>
                         <span th:text="${jobs.getCapacity()}"></span>
                     </div>
+                    -->
                     <div>
-                        <span>Hired Workers: </span>
+                        <!-- <span>Hired Workers: </span> -->
                         <div class="counter-list">
-                            <img th:if="${jobs.getAssignedWorkers().size() > 0}" th:each="i : ${#numbers.sequence(1,jobs.getAssignedWorkers().size())}" src="images/hire-counter.png" alt="img"/>
-                            <img th:each="i : ${#numbers.sequence(1,jobs.getCapacity()-jobs.getAssignedWorkers().size())}" src="images/empty-counter.png" alt="img"/>
+                            <img class="counter-list-item" th:if="${jobs.getAssignedWorkers().size() > 0}"
+                                 th:each="i : ${#numbers.sequence(1,jobs.getAssignedWorkers().size())}"
+                                 src="/images/hire-counter.png" alt="img"/>
+                            <img class="counter-list-item"
+                                 th:each="i : ${#numbers.sequence(1,jobs.getCapacity()-jobs.getAssignedWorkers().size())}"
+                                 src="/images/empty-counter.png" alt="img"/>
                         </div>
                         <span th:each="worker : ${jobs.getAssignedWorkers()}">
                         </span>
                     </div>
+                    <div th:if="${@jobExtras.isTemporaryJob(jobs)}">
+                        <!--  <span>Time remain: </span> -->
+                        <div class="counter-list">
+                            <img class="counter-list-item"
+                                 th:each="i : ${#numbers.sequence(1,@jobExtras.getTemporaryJobTime(jobs))}"
+                                 src="/images/time-counter.png" alt="img"/>
+                        </div>
+                        <!--   <span th:text="${@jobExtras.getTemporaryJobTime(jobs)}"></span>
+                        <span> refresh/es</span> -->
+                    </div>
                     <div>
                         <span>Deal Profit: </span>
-                        <span th:text="${jobs.getDealProfit()}"></span>
-                    </div>
-                    <div th:if="${@jobExtras.isTemporaryJob(jobs)}">
-                        <span>Time remain: </span>
-                        <div class="counter-list">
-                            <img th:each="i : ${#numbers.sequence(1,@jobExtras.getTemporaryJobTime(jobs))}" src="images/time-counter.png" alt="img"/>
-                        </div>
-                        <span th:text="${@jobExtras.getTemporaryJobTime(jobs)}"></span>
-                        <span> refresh/es</span>
+                        <span th:text="${jobs.getDealProfit()} + ' €'"></span>
                     </div>
                     <div th:if="${@jobExtras.isTemporaryJob(jobs)}">
                         <span>Penalty: </span>
-                        <span th:text="${@jobExtras.getPenalty(jobs)}"></span>
+                        <span th:text="${@jobExtras.getPenalty(jobs)}  + ' €'"></span>
                         <span></span>
                     </div>
                 </div>
             </div>
-            <div th:if="${@profitPioneerController.isGameStarted()}" class="list-item" ondragover="allowDrop(event)" ondrop="dropToTrashBin(event)" style="width: fit-content; height: fit-content;">
-                <img src="images/trash-can-white.png" alt="trash can"style="object-fit: cover; max-height: 160px; width: fit-content;" />
+            <div th:if="${@profitPioneerController.isGameStarted()}" class="list-item" ondragover="allowDrop(event)"
+                 ondrop="dropToTrashBin(event)" style="width: fit-content; height: fit-content;">
+                <img src="/images/trash-can-white.png" alt="trash can"
+                     style="object-fit: cover; max-height: 160px; width: fit-content;"/>
             </div>
         </div>
     </div>
-    <form action="/start-game" th:if="${!@profitPioneerController.isGameStarted()}">
-        <input class="button ubuntu-bold" type="submit" value="Start Game"/>
-    </form>
-    <form action="/reset" th:if="${@profitPioneerController.isGameStarted()}">
-        <input class="button ubuntu-bold" type="submit" value="Reset"/>
-    </form>
+    <div class="horizontal-line">
+        <form action="/start-game" th:if="${!@profitPioneerController.isGameStarted()}">
+            <input class="button ubuntu-bold" type="submit" value="Start Game"/>
+        </form>
 
+        <!-- Save Form -->
+        <form id="saveForm" action="/save" th:if="${@profitPioneerController.isGameStarted()}" method="post" enctype="multipart/form-data">
+            <input class="button ubuntu-bold" type="submit" value="Save"/>
+        </form>
+
+        <!-- Load Form -->
+        <form id="loadForm" action="/load" method="post" enctype="multipart/form-data">
+            <input class="button ubuntu-bold" type="submit" onclick="handleFileAction('load')" value="Load"/>
+        </form>
+
+        <form action="/reset" th:if="${@profitPioneerController.isGameStarted()}">
+            <input class="button ubuntu-bold" type="submit" value="Reset"/>
+        </form>
+        <form action="/end" th:if="${@profitPioneerController.isGameStarted()}">
+            <input class="button ubuntu-bold" type="submit" value="End Game"/>
+        </form>
+
+    </div>
+
+
+
+
+    <section th:replace="~{fragments/fragments :: rules-page-link}"></section>
 </section>
 
 

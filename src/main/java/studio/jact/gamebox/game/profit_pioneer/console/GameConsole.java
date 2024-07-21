@@ -53,7 +53,7 @@ public class GameConsole {
 
         for (IJob job : workHouse.getJobList()){
             System.out.println("== Job " + job.getId() + " ==");
-            System.out.println("Name: " + job.getJobName());
+            System.out.println("Name: " + job.getName());
             System.out.println("Workers Capacity: " + job.getCapacity());
             System.out.println("Workers Taken: " + job.getAssignedWorkers().size());
             for ( IWorker worker : job.getAssignedWorkers()) {

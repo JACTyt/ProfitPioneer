@@ -2,17 +2,20 @@ package studio.jact.gamebox.game.profit_pioneer.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class Job implements IJob{
+public class Job implements IJob {
     private int id;
     private int capacity;
     private String name;
     private List<IWorker> assignedWorkers = new ArrayList<IWorker>();
 
+    public Job() {
+
+    }
+
     public Job(int id) {
         this.id = id;
-        capacity = ValueGenerator.generate(1,4,1);
+        capacity = ValueGenerator.generate(1, 4, 1);
         Initialize();
     }
 
@@ -29,12 +32,12 @@ public class Job implements IJob{
 
     @Override
     public void assignWorker(IWorker worker) {
-        if(!assignedWorkers.contains(worker))
+        if (!assignedWorkers.contains(worker))
             assignedWorkers.add(worker);
     }
 
     @Override
-    public String getJobName() {
+    public String getName() {
         return name;
     }
 
@@ -58,9 +61,9 @@ public class Job implements IJob{
     }
 
     @Override
-    public int getDealProfit(){
+    public int getDealProfit() {
         int result = 0;
-        for(IWorker worker : assignedWorkers){
+        for (IWorker worker : assignedWorkers) {
             result += worker.getPayment();
         }
         return result;
