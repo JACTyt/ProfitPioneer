@@ -9,7 +9,7 @@
 </head>
 
 <section layout:fragment="content" class="game-container">
-    <div class="game-information horizontal-line">
+    <div class="game-information horizontal-line" th:if="${@profitPioneerController.isGameStarted()}">
         <div class="line-description-container">
             <span>Stage:</span>
             <span th:text="${@profitPioneerController.getWorkHouse().getStage()}"></span>
@@ -30,7 +30,7 @@
              src="/images/live-counter.png" alt="img"/>
     </div>
 
-    <div class="worker-container">
+    <div class="worker-container" th:if="${@profitPioneerController.isGameStarted()}">
         <h2>Workers List</h2>
         <div class="list-container">
             <div class="list-item" th:each="workers : ${@profitPioneerController.getWorkHouse().getWorkerList()}"
@@ -39,10 +39,12 @@
                     <span th:text="${workers.getFullName()}"></span>
                 </div>
                 <div>
+                    <!--
                     <div>
                         <span>ID: </span>
                         <span th:text="${workers.getId()}"></span>
                     </div>
+                    -->
                     <div>
                         <span>Payment: </span>
                         <span th:text="${workers.getPayment()}"></span>
@@ -51,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div class="job-container">
+    <div class="job-container" th:if="${@profitPioneerController.isGameStarted()}">
         <h2>Job List</h2>
         <div class="list-container" onchange="addEventListeners()">
             <div class="list-item" th:each="jobs : ${@profitPioneerController.getWorkHouse().getJobList()}"

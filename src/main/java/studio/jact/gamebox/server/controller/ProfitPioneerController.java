@@ -119,7 +119,6 @@ public class ProfitPioneerController {
     @GetMapping("/stats")
     private String statisticsPage(Model model) {
         prepareModel(model);
-        System.out.println("STATS");
         return "stats";
     }
 

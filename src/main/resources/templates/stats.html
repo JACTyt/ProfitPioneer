@@ -7,12 +7,93 @@
     <title>Profit Pioneer - Statistics</title>
 </head>
 
-<section layout:fragment="content">
-    <tr><td>File to upload:<input type="file" name="file" WebKitDirectory /></td></tr>
+<section layout:fragment="content" class="game-container">
+
+    <div class="horizontal-line">
+        <h1 class="rules-header">Game Over</h1>
+    </div>
+
+    <div class="horizontal-line">
+        <h1 class="rules-header">Overall statistics</h1>
+    </div>
+
+    <div class="game-information horizontal-line">
+        <div class="line-description-container">
+            <span>Last stage: </span>
+            <span th:text="${@profitPioneerController.getWorkHouse().getStage()}"></span>
+        </div>
+        <div id="total-profit" class="line-description-container">
+            <span>Total Profit: </span>
+            <span th:text="${@profitPioneerController.getWorkHouse().getProfit()}  + ' €'"></span>
+        </div>
+        <div class="line-description-container">
+            <span>Lives remained: </span>
+            <span th:text="${@profitPioneerController.getWorkHouse().getLives()}"></span>
+        </div>
+    </div>
+
+
+    <div class="worker-container">
+        <h2>Workers List</h2>
+        <div class="list-container">
+            <div class="list-item" th:each="workers : ${@profitPioneerController.getWorkHouse().getWorkerList()}">
+                <div class="list-item-header">
+                    <span th:text="${workers.getFullName()}"></span>
+                </div>
+                <div>
+                    <div>
+                        <span>Payment: </span>
+                        <span th:text="${workers.getPayment()}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="job-container">
+        <h2>Job List</h2>
+        <div class="list-container" onchange="addEventListeners()">
+            <div class="list-item" th:each="jobs : ${@profitPioneerController.getWorkHouse().getJobList()}">
+                <div class="list-item-header">
+                    <span th:text="${jobs.getName()}"></span>
+                </div>
+                <div>
+                    <div>
+                        <div class="counter-list">
+                            <img class="counter-list-item" th:if="${jobs.getAssignedWorkers().size() > 0}"
+                                 th:each="i : ${#numbers.sequence(1,jobs.getAssignedWorkers().size())}"
+                                 src="/images/hire-counter.png" alt="img"/>
+                            <img class="counter-list-item"
+                                 th:each="i : ${#numbers.sequence(1,jobs.getCapacity()-jobs.getAssignedWorkers().size())}"
+                                 src="/images/empty-counter.png" alt="img"/>
+                        </div>
+                        <span th:each="worker : ${jobs.getAssignedWorkers()}">
+                        </span>
+                    </div>
+                    <div th:if="${@jobExtras.isTemporaryJob(jobs)}">
+                        <div class="counter-list">
+                            <img class="counter-list-item"
+                                 th:each="i : ${#numbers.sequence(1,@jobExtras.getTemporaryJobTime(jobs))}"
+                                 src="/images/time-counter.png" alt="img"/>
+                        </div>
+                    </div>
+                    <div>
+                        <span>Deal Profit: </span>
+                        <span th:text="${jobs.getDealProfit()} + ' €'"></span>
+                    </div>
+                    <div th:if="${@jobExtras.isTemporaryJob(jobs)}">
+                        <span>Penalty: </span>
+                        <span th:text="${@jobExtras.getPenalty(jobs)}  + ' €'"></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="horizontal-line">
         <form action="/">
-            <input class="button ubuntu-bold" type="submit" value="Return to Game"/>
+            <input class="button ubuntu-bold" type="submit" value="Main menu"/>
         </form>
     </div>
 </section>
