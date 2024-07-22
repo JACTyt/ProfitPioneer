@@ -97,6 +97,26 @@ footer {
     padding: 10px 0;
 }
 
+.article{
+    max-height: 200px;
+    padding: 30px;
+}
+
+.article-header{
+    max-height: 50px;
+    max-width: 100%;
+}
+
+.article-text{
+    max-height: 150px;
+}
+
+.article img{
+    object-fit: contain;
+    max-width: 300px;
+    width: fit-content;
+}
+
 .game-information {
     padding: 0;
 }
@@ -174,4 +194,9 @@ footer {
 
 .counter-list-item {
     padding: 5px;
+}
+
+.rules-header{
+    font-size: 48px;
+    margin: 0;
 }
