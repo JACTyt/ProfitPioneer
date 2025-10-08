@@ -1,6 +1,7 @@
 # 💼 Profit Pioneer
+Welcome to **Profit Pioneer**!
 
-**Profit Pioneer** is a strategic move-based **management** and risk assessment **game** built in **Java**.  
+Profit Pioneer is a strategic resource management game where you become an industrial tycoon by efficiently assigning workers to various jobs and maximizing your profits. Dive into the exciting world of strategic decision-making, risk management, and resource optimization.
 
 Your goal is to effectively assign workers, complete jobs, and maximize your profits — all while managing limited health and time.  
 The player who masters these elements and earns the highest profit becomes the ultimate **Profit Pioneer**.
@@ -8,11 +9,11 @@ The player who masters these elements and earns the highest profit becomes the u
 ---
 
 ## 🎯 Game Overview
+In Profit Pioneer, your main goal is to make the maximum profit possible by strategically managing your workforce and tackling various jobs that come your way. With a mix of permanent and temporary jobs, you must balance long-term stability with short-term opportunities.
 
-Profit Pioneer challenges players to balance **temporary and permanent jobs**, **strategically hire workers**, and **minimize losses** caused by missed deadlines or poor resource allocation.
+---
 
 ### 🧠 Game Concept
-
 - Player manages a pool of available workers.
 - Workers can be assigned to jobs through an **intuitive drag-and-drop interface**.
 - Completing jobs increases your profit.
@@ -21,50 +22,25 @@ Profit Pioneer challenges players to balance **temporary and permanent jobs**, *
 
 ---
 
-## 🕹️ How to Play
-
-### 1. Summary of Game Task and Lives
-
-- You start with a 3 healths.
-- Every **temporary job** has a move timer.
-- If a temporary job expires before completion, you lose **health points** and pay a penalty fee.
-- The goal is to balance **risk and reward** — finish high-reward jobs without letting others expire.
+## 🧩 Features
+✅ Strategic Resource Management: Assign workers with different skills to suitable jobs and optimize your workflow.
+✅ Dynamic Job System: Handle both permanent and temporary jobs to maximize profit.
+✅ Intuitive Drag-and-Drop Interface: Easily assign workers to jobs with a simple drag-and-drop mechanism.
+✅ Health Management: Balance the risk and reward by maintaining your health points.
 
 ---
 
-### 2. Hiring Workers
-
-- Hiring workers is **essential** to success.
-- Each worker contributes differently to your income (profit).
-- Use the **drag-and-drop system** to assign workers to jobs quickly and efficiently.
-- At the beginning of each turn, you have access to a **pool of available workers** — choose wisely who to assign!
-
----
-
-### 3. Temporary Jobs
-
-- Temporary jobs are **high-risk, high-reward** tasks.
-- Each one has a **countdown timer**.
-- If completed before the timer expires → you gain profit 💰
-- If the timer runs out → you lose health ❤️ and receive a financial penalty.
-
-Strategically prioritize which jobs to take and which to leave!
-
----
-
-## 🧩 Key Features
-
-✅ Strategic worker management  
-✅ Drag-and-drop job assignment  
-✅ Temporary vs permanent jobs system  
-✅ Health and profit tracking  
-✅ Interactive UI built with Thymeleaf templates  
-✅ Real-time feedback and game state updates
+## How to Play
+1. Assign Workers: <br />Use the intuitive drag-and-drop interface to assign workers to available jobs.
+   Match workers’ skills with job requirements to complete tasks efficiently.
+2. Manage Jobs: <br />Focus on permanent jobs for steady income.
+   Prioritize temporary jobs to earn high rewards before their timers expire.
+3. Handle Penalties:<br />Monitor your health points and avoid taking on too many risky temporary jobs simultaneously.
+   Strategically balance your assignments to maintain a healthy profit margin.
 
 ---
 
 ## 🧱 Technologies Used
-
 - **Java (Spring Boot)** – main backend framework
 - **Thymeleaf** – frontend templating engine
 - **HTML / CSS / JS** – interface and user interactions
@@ -73,7 +49,6 @@ Strategically prioritize which jobs to take and which to leave!
 ---
 
 ## 🚀 How to Run the Project
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/profit-pioneer.git
+1. **Clone the repository.**
+2. **Build with maven**
+3. **Use your browser to run it on localhost:8080**
